@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # Weird Cache Files macOS Makes
-#._*
+._*
