@@ -1,6 +1,7 @@
 import axios from "axios";
 import {useEffect} from "react";
 import airBreak from '../assets/air-break.png'
+import noCover from '../assets/no-cover.png'
 
 // before you say "this is not how you use React", let me just say,
 // yeah I know, my bad
