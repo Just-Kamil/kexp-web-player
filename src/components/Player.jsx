@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import pause from "../assets/pause-icon.svg";
+import play from "../assets/play-icon.svg";
 
 const useAudio = url => {
     const [audio] = useState(new Audio(url));
@@ -19,7 +21,7 @@ const Player = ({url}) => {
     const [playing, toggle] = useAudio(url);
     return (
         <div className="player">
-            <button onClick={toggle}><img  className="toggle-btn" alt="pause/play icons" src={playing ? "/src/assets/pause-icon.svg" : "/src/assets/play-icon.svg"}></img></button>
+            <button onClick={toggle}><img  className="toggle-btn" alt="pause/play icons" src={playing ? pause : play}></img></button>
         </div>
     )
 }

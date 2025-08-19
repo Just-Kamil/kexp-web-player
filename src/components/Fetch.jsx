@@ -1,5 +1,6 @@
 import axios from "axios";
 import {useEffect} from "react";
+import airBreak from '../assets/air-break.png'
 
 // before you say "this is not how you use React", let me just say,
 // yeah I know, my bad
@@ -47,9 +48,9 @@ function Fetch() {
         if (stored.image_uri && stored.song) {
             document.getElementsByClassName("background-image")[0].style.backgroundImage = "url(" + (stored.image_uri) + ")";
         } else if (!stored.image_uri && !stored.song) {
-            document.getElementsByClassName("background-image")[0].style.backgroundImage = "url('/src/assets/air-break.png')";
+            document.getElementsByClassName("background-image")[0].style.backgroundImage = `url(${airBreak})`;
         } else {
-            document.getElementsByClassName("background-image")[0].style.backgroundImage = "url('/src/assets/no-cover.png')";
+            document.getElementsByClassName("background-image")[0].style.backgroundImage = `url(${noCover})`;
         }
 
         // update favicon
