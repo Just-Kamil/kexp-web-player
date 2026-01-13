@@ -3,6 +3,7 @@ import '../App.css'
 import {retrieveResult} from './Fetch.jsx'
 import Player from './Player.jsx'
 import noArt from '../assets/no-cover.png'
+import airBreak from '../assets/air-break.png'
 
 function App() {
     const [data, setData] = useState(":)")
@@ -16,6 +17,15 @@ function App() {
            setInterval(retrieveAndSet, 10000)
        },[]);
 
+    // Check if there is no cover or an air break
+    let album_art = data.image_uri;
+    if (data.image_uri && data.song) {
+        album_art = data.image_uri;
+    } else if (!data.image_uri && !data.song) {
+        album_art = airBreak;
+    } else {
+        album_art = noArt;
+    }
 
     return (
         <div className="App">
@@ -26,7 +36,7 @@ function App() {
             <div style={{whiteSpace: "pre-wrap"}}>
                 {/* Info Container Div*/}
                 <div className="flex flex-row">
-                    <img alt="Album Cover" className="rounded-xl album-cover" src={data.image_uri ? data.image_uri: noArt}></img>
+                    <img alt="Album Cover" className="rounded-xl album-cover" src={album_art}></img>
                     <div className="flex flex-col pl-4 justify-end">
                         <div className="flex flex-col pb-4 opacity-65">
                             <h1>{data.song ? data.song:"Air Break"}</h1>

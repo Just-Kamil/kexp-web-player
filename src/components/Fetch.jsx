@@ -24,7 +24,6 @@ function Fetch() {
         }
         let lyric_uri = `https://lrclib.net/api/get?track_name=${encodeURI(lastSong.song)}&artist_name=${lyric_web.artist}&album_name=${lyric_web.album}`;
         let res_lyric;
-
         try {
             res_lyric = await axios.get(lyric_uri)
         } catch (error) {
@@ -45,13 +44,19 @@ function Fetch() {
             plainLyrics: lastLyric.plainLyrics
         };
 
-        // update bg image
-        if (stored.image_uri && stored.song) {
-            document.getElementsByClassName("background-image")[0].style.backgroundImage = "url(" + (stored.image_uri) + ")";
-        } else if (!stored.image_uri && !stored.song) {
-            document.getElementsByClassName("background-image")[0].style.backgroundImage = `url(${airBreak})`;
+        let coverImage = stored.image_uri;
+        // check for no art or air break
+        if (!stored.image_uri && !stored.song) {
+            coverImage = airBreak;
         } else {
-            document.getElementsByClassName("background-image")[0].style.backgroundImage = `url(${noCover})`;
+            coverImage = noCover;
+        }
+
+        // update bg image
+        if (stored.image_uri && !stored.song) {
+            document.getElementsByClassName("background-image")[0].style.backgroundImage = "url(" + (stored.image_uri) + ")";
+        } else  {
+            document.getElementsByClassName("background-image")[0].style.backgroundImage = `url(${coverImage})`;
         }
 
         // update favicon
@@ -61,10 +66,10 @@ function Fetch() {
             link.rel = 'icon';
             document.head.appendChild(link);
         }
-        link.href = stored.thumbnail_uri;
+        link.href = coverImage;
 
         // update page title
-        document.title = `${stored.song} - ${stored.artist}`
+        document.title = `${stored.song ? stored.song: "KEXP"} - ${stored.artist ? stored.artist: "Where music Matters"}`
 
 
         // update mediaSession
@@ -73,7 +78,7 @@ function Fetch() {
                 title: stored.song,
                 artist: stored.artist,
                 album: stored.album,
-                artwork: [{src: stored.image_uri}]
+                artwork: [{src: coverImage}]
             })
         }
 
