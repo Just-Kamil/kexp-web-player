@@ -44,12 +44,14 @@ function Fetch() {
             plainLyrics: lastLyric.plainLyrics
         };
 
-        let coverImage = stored.image_uri;
         // check for no art or air break
+        let coverImage;
         if (!stored.image_uri && !stored.song) {
             coverImage = airBreak;
-        } else {
+        } else if (!stored.image_uri) {
             coverImage = noCover;
+        } else {
+            coverImage = stored.image_uri
         }
 
         // update bg image
