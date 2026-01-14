@@ -7,7 +7,6 @@ import {fetchData} from "../js/fetch.js";
 
 // delay in api calls in seconds
 let DELAY = 40;
-let apiCalls = 0;
 
 
 function App() {
@@ -21,8 +20,6 @@ function App() {
 
     const retrieveAndSet =  async () => {
         fetchData().then( res => setData(res))
-        apiCalls++;
-        console.log(apiCalls);
     }
 
        useEffect(() => {
@@ -30,7 +27,7 @@ function App() {
        },[]);
 
     // Check if there is no cover or an air break
-    let album_art = data.image_uri;
+    let album_art;
     if (data.image_uri && data.song) {
         album_art = data.image_uri;
     } else if (!data.image_uri && !data.song) {
