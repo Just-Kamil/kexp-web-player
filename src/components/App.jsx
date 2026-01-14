@@ -1,20 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import '../App.css'
-import {retrieveResult} from './Fetch.jsx'
 import Player from './Player.jsx'
 import noArt from '../assets/no-cover.png'
 import airBreak from '../assets/air-break.png'
+import {fetchData} from "../js/fetch.js";
+
+// delay in api calls in seconds
+let DELAY = 40;
+let apiCalls = 0;
+
 
 function App() {
-    const [data, setData] = useState(":)")
+    const [data, setData] = useState({})
 
-    const retrieveAndSet = () => {
-       setData(retrieveResult())
+    // fire only at the first render, no dependencies so only fires once
+    useMemo(() => {
+        fetchData().then(res => {setData(res)})
+    },[])
+
+
+    const retrieveAndSet =  async () => {
+        fetchData().then( res => setData(res))
+        apiCalls++;
+        console.log(apiCalls);
     }
 
        useEffect(() => {
-           retrieveAndSet()
-           setInterval(retrieveAndSet, 10000)
+           setInterval(retrieveAndSet, DELAY * 1000)
        },[]);
 
     // Check if there is no cover or an air break
