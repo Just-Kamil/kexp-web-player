@@ -6,6 +6,7 @@
 
 .background-image {
   background-image: url("/src/assets/no-cover.png");
+  background-position: center center;
   background-size: cover;
   filter: blur(20px);
   width: 100%;
@@ -41,4 +42,5 @@
 
 .album-cover {
   height: 50vh;
+  width: auto;
 }

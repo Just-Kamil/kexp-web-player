@@ -2,6 +2,11 @@ import axios from 'axios'
 import airBreak from '../assets/air-break.png'
 import noCover from '../assets/no-cover.png'
 
+// Data from last api call
+export let cachedData;
+export let cachedShow;
+
+
 export const fetchData = async () => {
 
     // make api call
@@ -77,5 +82,20 @@ export const fetchData = async () => {
         })
     }
     console.log('END')
+    cachedData = stored;
+    return stored;
+}
+
+
+export const fetchShow = async () => {
+    let res = await axios.get('https://api.kexp.org/v2/shows/?limit=1');
+    const lastShow =  res.data.results[0];
+    console.log(lastShow.host_names);
+    let stored = {
+        programName: lastShow.program_name,
+        hostNames: lastShow.host_names,
+        hostPhoto: lastShow.image_uri
+    };
+    cachedShow =  stored;
     return stored;
 }
