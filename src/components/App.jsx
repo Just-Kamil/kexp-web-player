@@ -41,15 +41,19 @@ function App() {
             <div style={{whiteSpace: "pre-wrap"}}>
                 {/* Info Container Div*/}
                 <div className="flex flex-col lg:flex-row">
-                    <div className='rounded-xl p-0.5 bg-gradient-to-bl from-gray-200/20 to-gray-200/5'>
+                    <div className='rounded-xl p-0.5 bg-gradient-to-bl from-gray-200/20 to-gray-200/5 shadow-lg'>
                         <img alt="Album Cover" className="rounded-xl w-96" src={album_art}></img>
                     </div>
                     <div className="flex flex-col lg:flex-col pl-4 justify-center lg:justify-end">
                         <div className="flex flex-col pb-4 opacity-65">
-                            <h1>{data.song ? data.song:"Air Break"}</h1>
-                            <h2>{data.artist}</h2>
-                            <h4>{data.album}</h4>
-                            <h4>{data.release_date ? data.release_date + " | " + data.labels.join(", "): ""}</h4>
+                            <div className={data.album ? 'mb-3' : 'mb-0'}>
+                                <h1 className='font-bold'>{data.song ? data.song:"Air Break"}</h1>
+                                <h2 className='text-3xl'>{data.artist ? data.artist : "KEXP"}</h2>
+                            </div>
+                            <div className='italic'>
+                                <h4>{data.album}</h4>
+                                <h4>{data.release_date ? data.release_date.slice(0,4) + " | " + data.labels.join(", "): ""}</h4>
+                            </div>
                         </div>
                         <div className='justify-self-center'>
                             <Player url={"https://kexp-mp3-128.streamguys1.com/"}></Player>
